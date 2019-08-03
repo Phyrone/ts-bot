@@ -1,6 +1,11 @@
 pipeline {
   agent any
   stages {
+    stage('Prepare') {
+      steps {
+        sh 'chmod a+x gradlew'
+      }
+    }
     stage('Clean') {
       steps {
         sh './gradlew clean'
