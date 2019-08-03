@@ -1,14 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('Prepare') {
-      steps {
-        sh 'chmod a+x gradlew'
-      }
-    }
     stage('Clean') {
       steps {
-        sh './gradlew clean'
+        sh 'gradle clean'
       }
     }
     stage('JAR') {
@@ -24,5 +19,6 @@ pipeline {
   }
   tools {
     jdk 'Java8'
+    gradle 'gradle5'
   }
 }
