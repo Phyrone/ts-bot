@@ -8,7 +8,7 @@ pipeline {
     }
     stage('JAR') {
       steps {
-        sh './gradlew shadowJar'
+        sh 'gradle shadowJar'
       }
     }
     stage('Archive') {
