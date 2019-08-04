@@ -1,3 +1,4 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -44,6 +45,7 @@ tasks.withType<KotlinCompile> {
 }
 val mainClassPath = "de.phyrone.tsbot.TsBotServer"
 tasks.withType<Jar> {
+
     manifest {
         attributes(
             mapOf(
@@ -51,4 +53,11 @@ tasks.withType<Jar> {
             )
         )
     }
+}
+tasks.withType<ShadowJar> {
+    baseName = "mini-ts-bot"
+    classifier = null
+    version = null
+    // minimize{ exclude("com.fasterxml.jackson.*:.*:.*", "org.jetbrains.kotlin:kotlin-reflect:.*") }
+
 }
