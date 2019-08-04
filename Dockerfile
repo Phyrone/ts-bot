@@ -7,4 +7,4 @@ RUN cp /build/build/libs/mini-ts-bot.jar /opt/bot/mini-ts-bot.jar && rm -R /buil
 FROM shipilev/openjdk-shenandoah:11
 WORKDIR /app/
 VOLUME /app/
-CMD ["java","-server","-XX:+UnlockExperimentalVMOptions","-XX:+UseShenandoahGC","-Dfile.encoding=UTF-8","-Xms50m","-Xmx50m"," -jar","/opt/bot/mini-ts-bot.jar"]
+CMD ["java","-XX:+UnlockExperimentalVMOptions","-XX:+UseShenandoahGC","-Dfile.encoding=UTF-8","-Xms50m","-Xmx50m"," -jar","/opt/bot/mini-ts-bot.jar"]
