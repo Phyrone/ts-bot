@@ -5,6 +5,7 @@ COPY . /build/
 RUN cd /build/ && chmod a+x gradlew && ./gradlew --no-daemon clean shadowJar
 RUN ls /build/build/libs/ && mkdir /opt/bot/
 RUN cp /build/build/libs/mini-ts-bot.jar /opt/bot/mini-ts-bot.jar && rm -R /build/
+USER 600
 VOLUME /opt/bot/
 WORKDIR /app/
 VOLUME /app/
