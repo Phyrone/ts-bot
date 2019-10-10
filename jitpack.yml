@@ -1,2 +1,3 @@
 install:
+   - chmod a+x gradlew
    - ./gradlew clean install
