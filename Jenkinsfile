@@ -18,7 +18,7 @@ pipeline {
     }
   }
   tools {
-    jdk 'jdk8'
+    jdk 'openjdk11'
     gradle 'gradle5'
   }
 }
