@@ -142,6 +142,13 @@ class TsBotSetup : Runnable {
             val host = textIO.newStringInputReader().read("Host")
             val port = textIO.newIntInputReader().withDefaultValue(9987).read("Port")
             val useSRV = textIO.newBooleanInputReader().withDefaultValue(false).read("Use SRV Record")
+            val hasSrvPsw = textIO.newBooleanInputReader().withDefaultValue(false).read("Has Server Password")
+            val srvPsw = if (hasSrvPsw){
+                textIO.newStringInputReader().withInputMasking(true).read("Server Password")
+            } else {
+                null
+            }
+            val volume = textIO.newIntInputReader().withDefaultValue(75).read("Volume")
             val generateIdentity = textIO.newBooleanInputReader().withDefaultValue(true).read("GenerateIdentity")
             var identity: LocalIdentity? = null
             if (generateIdentity) {
@@ -164,8 +171,8 @@ class TsBotSetup : Runnable {
                 port,
                 useSRV,
                 10000,
-                100,
-                null,
+                volume,
+                srvPsw,
                 null,
                 null,
                 version
@@ -218,7 +225,7 @@ class TsBotGenerateIdentityTool : Runnable {
     @CommandLine.Option(
         names = ["--security-level", "--level", "-l"]
     )
-    var levelOption = 8
+    var levelOption : Int? = null
 
     @CommandLine.Option(
         names = ["--output-file", "-o"]
@@ -226,7 +233,7 @@ class TsBotGenerateIdentityTool : Runnable {
     var outputFile = File(identityFileName)
 
     override fun run() {
-        val level = levelOption.coerceAtLeast(1)
+        val level = (levelOption ?: TextIoFactory.getTextIO().run { newIntInputReader().withMinVal(1).withDefaultValue(8).read("Security Level").also { this.dispose() } }).coerceAtLeast(1)
         println("Generating Identity with security level $level... (this may take a while)")
         val identity = LocalIdentity.generateNew(level)
         println("Identity Generated! -> Saving in File...")
@@ -272,7 +279,7 @@ class TsBotIncreaseIdentityTool : Runnable {
             repeat(level) {
                 val stepLevel = it + 1
                 if (identity.securityLevel < stepLevel) {
-                    println("Increasing security level to ${stepLevel + 1}... (this may take a while)")
+                    println("Increasing security level to ${stepLevel}... (this may take a while)")
                     val time = measureTimeMillis {
                         identity.improveSecurity(stepLevel)
                     }
