@@ -33,7 +33,7 @@ dependencies {
     compile("org.beryx:text-io:3.3.+")
 
     compile("com.sedmelluq:lavaplayer:1.3.+")
-    compile("com.github.Manevolent:ts3j:f72791637d")
+    compile("com.github.Manevolent:ts3j:1.0")
 
 }
 
