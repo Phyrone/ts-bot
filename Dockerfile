@@ -1,5 +1,5 @@
-#FROM openjdk:8-slim
-FROM shipilev/openjdk-shenandoah:11
+FROM openjdk:8-slim
+#FROM shipilev/openjdk-shenandoah:11
 MAINTAINER Phyrone<phyrone@phyrone.de>
 COPY . /build/
 RUN cd /build/ && chmod a+x gradlew && ./gradlew --no-daemon clean shadowJar
@@ -9,4 +9,4 @@ USER 600
 VOLUME /opt/bot/
 WORKDIR /app/
 VOLUME /app/
-CMD java -XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC -Dfile.encoding=UTF-8 -Xms50m -Xmx50m -jar /opt/bot/mini-ts-bot.jar
+CMD java  -XX:MaxGCPauseMillis=10 -XX:+UseG1GC -XX:+UseStringDeduplication -Dfile.encoding=UTF-8 -Xms50m -Xmx50m -jar /opt/bot/mini-ts-bot.jar
