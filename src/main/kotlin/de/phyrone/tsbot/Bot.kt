@@ -56,7 +56,6 @@ class Bot(val folder: File, val config: BotConfig, val manager: AudioPlayerManag
     init {
         reloadIdleList()
         registerCommands()
-        //player.setFrameBufferDuration(470)
     }
 
     private fun registerCommands() {
@@ -138,7 +137,7 @@ class Bot(val folder: File, val config: BotConfig, val manager: AudioPlayerManag
             runs {
                 sender.sendMessage("Volume: [b]${player.volume}[/b]")
             }
-            argument("volume", IntegerArgumentType.integer(0, 100)) {
+            argument("volume", IntegerArgumentType.integer(0, 99)) {
                 require { sender.hasPermission("audio.volume.set") }
                 runs {
                     player.volume = it.getArgument("volume")
@@ -198,6 +197,13 @@ class Bot(val folder: File, val config: BotConfig, val manager: AudioPlayerManag
                 require { sender.hasPermission("audio.queue.clear") }
                 runs {
                     trackQueue.clear()
+                }
+            }
+            literal("reloadIdleList") {
+                require { sender.hasPermission("audio.reloadIdleList") }
+                runs {
+                    reloadIdleList()
+                    sender.sendMessage("List Reloaded")
                 }
             }
         }
@@ -261,7 +267,7 @@ class Bot(val folder: File, val config: BotConfig, val manager: AudioPlayerManag
     }
 
     fun connect() {
-        player.volume = config.volume
+        player.volume = config.volume.coerceAtMost(99).coerceAtLeast(0)
         val address: InetSocketAddress = if (config.useSrvRecord) {
             runCatching { TS3DNS.lookup(config.host).first() }
                 .getOrElse { InetSocketAddress(config.host, config.port) }
@@ -351,15 +357,12 @@ private class LavaMicrophone(val player: AudioPlayer) : Microphone {
 
     var audioFrame: ByteArray? = null
     override fun getCodec(): CodecType = CodecType.OPUS_MUSIC
+
     // override fun isMuted(): Boolean = player.playingTrack != null
     override fun isReady(): Boolean {
         audioFrame = player.provide()?.data
         return audioFrame?.size ?: 0 > 0
     }
 
-    override fun provide(): ByteArray = (audioFrame ?: byteArrayOf()).cutMaxSize(470)
-    private fun ByteArray.cutMaxSize(maxSize: Int) = if (this.size > maxSize) {
-        System.err.println("AudioFrame to large -> CUT!")
-        this.copyOf(maxSize)
-    } else this
+    override fun provide() = audioFrame
 }

@@ -16,6 +16,7 @@ import picocli.CommandLine
 import java.io.File
 import java.math.BigInteger
 import java.util.*
+import javax.sound.sampled.AudioFormat
 import kotlin.system.exitProcess
 import kotlin.system.measureTimeMillis
 
@@ -61,8 +62,6 @@ class TsBotServer : Runnable {
         if (enableFileSource) {
             AudioSourceManagers.registerLocalSource(playerManager)
         }
-        playerManager.frameBufferDuration = 470
-        playerManager.configuration.outputFormat = OpusAudioDataFormat(2, 48000 / 2, 960 / 2)
         Config.load(configFile)
         Config.save(configFile)
         val bots = mutableSetOf<Bot>()
