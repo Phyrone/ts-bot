@@ -22,7 +22,7 @@ dependencies {
     testCompile("junit", "junit", "4.12")
     compile("org.slf4j", "slf4j-simple", "1.7.21")
 
-    compile("org.fusesource.jansi:jansi:1.18")
+    compile("org.fusesource.jansi:jansi:2.4.0")
     compile("com.squareup.okhttp3", "okhttp", "4.0.+")
     compile("com.github.phyrone", "brigardier-kotlin", "1.3.+")
 
