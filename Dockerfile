@@ -1,5 +1,5 @@
 
-FROM openjdk:11-slim as build
+FROM openjdk:19-slim as build
 COPY . /build/
 RUN cd /build/ && chmod a+x gradlew && ./gradlew --no-daemon clean shadowJar
 #RUN cp /build/build/libs/mini-ts-bot.jar /opt/bot/mini-ts-bot.jar && rm -R /build/
