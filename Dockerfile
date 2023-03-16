@@ -1,9 +1,9 @@
 
-FROM openjdk:11-slim as build
+FROM openjdk:11.0.16-slim as build
 COPY . /build/
 RUN cd /build/ && chmod a+x gradlew && ./gradlew --no-daemon clean shadowJar
 #RUN cp /build/build/libs/mini-ts-bot.jar /opt/bot/mini-ts-bot.jar && rm -R /build/
-FROM openjdk:11-jre-slim
+FROM openjdk:11.0.16-jre-slim
 #FROM shipilev/openjdk-shenandoah:11
 MAINTAINER Phyrone<phyrone@phyrone.de>
 COPY --from=build /build/build/libs/mini-ts-bot.jar /usr/lib/mini-ts-bot.jar
