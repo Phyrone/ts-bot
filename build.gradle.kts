@@ -20,7 +20,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     testCompile("junit", "junit", "4.12")
-    compile("org.slf4j", "slf4j-simple", "1.7.21")
+    compile("org.slf4j", "slf4j-simple", "2.0.11")
 
     compile("org.fusesource.jansi:jansi:1.18")
     compile("com.squareup.okhttp3", "okhttp", "4.0.+")
