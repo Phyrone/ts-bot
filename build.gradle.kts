@@ -26,7 +26,7 @@ dependencies {
     compile("com.squareup.okhttp3", "okhttp", "4.0.+")
     compile("com.github.phyrone", "brigardier-kotlin", "1.3.+")
 
-    compile("com.fasterxml.jackson.core", "jackson-databind", "2.9.+")
+    compile("com.fasterxml.jackson.core", "jackson-databind", "2.17.+")
     compile("com.fasterxml.jackson.module", "jackson-module-kotlin", "2.9.+")
 
     compile("info.picocli:picocli:4.+")
