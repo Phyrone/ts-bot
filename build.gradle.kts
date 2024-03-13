@@ -27,7 +27,7 @@ dependencies {
     compile("com.github.phyrone", "brigardier-kotlin", "1.3.+")
 
     compile("com.fasterxml.jackson.core", "jackson-databind", "2.9.+")
-    compile("com.fasterxml.jackson.module", "jackson-module-kotlin", "2.9.+")
+    compile("com.fasterxml.jackson.module", "jackson-module-kotlin", "2.17.+")
 
     compile("info.picocli:picocli:4.+")
     compile("org.beryx:text-io:3.3.+")
